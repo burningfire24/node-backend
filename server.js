@@ -1,9 +1,12 @@
 const express = require('express');
+const cors = require('cors')
 const {validateMiddleware}=require('./Middelwares/validateMiddleware')
+const {jwttoken} =require('./Middelwares/jwt');
 
 
 
 require('dotenv').config();
+
 
 
 const app= express();
@@ -15,7 +18,7 @@ const PORT= process.env.PORT || 3000;
 
 //middlewares
 app.use(express.json());
-
+app.use(cors());
 
 
 //routes
@@ -28,9 +31,10 @@ app.get('/getdata',(req,res)=>{
     //get data from the DB
 })
 
-app.post('/adddata',validateMiddleware,(req,res)=>{
+app.post('/adddata',validateMiddleware,jwttoken,(req,res)=>{
 
     res.send("success");
+
     console.log('everything is fine and your data is added to the DB');
     //authenticate the input data
     
