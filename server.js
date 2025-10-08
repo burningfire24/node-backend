@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const {validateMiddleware}=require('./Middelwares/validateMiddleware')
 const {jwttoken} =require('./Middelwares/jwt');
+const {}=require('./DB/mongoConnection')
 
 
 
@@ -33,8 +34,7 @@ app.get('/getdata',(req,res)=>{
 
 app.post('/adddata',validateMiddleware,jwttoken,(req,res)=>{
 
-    res.send("success");
-
+    
     console.log('everything is fine and your data is added to the DB');
     //authenticate the input data
     

@@ -11,7 +11,7 @@ export function TokenCappture() {
     console.log("Passcode:", passcode);
 
     try {
-      const response = await axios.post("http://localhost:4000/adddata", {
+      const response = await axios.post("http://localhost:3000/adddata", {
         name: "brishke",
         email,
         passcode,

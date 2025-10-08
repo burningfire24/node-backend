@@ -1,11 +1,11 @@
 
 const jwt = require('jsonwebtoken');
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../.env') });
+require('dotenv').config({ path: path.join(__dirname, './../.env') });
 
 
 
-const KEY=process.env.KEY;
+const KEY=process.env.KEY|| '9929@qwert';
 
 
 function jwttoken(req,res,next){
