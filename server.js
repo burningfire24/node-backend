@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors')
 const {validateMiddleware}=require('./Middelwares/validateMiddleware')
 const {jwttoken} =require('./Middelwares/jwt');
-const {}=require('./DB/mongoConnection')
+const {AddData}=require('./DB/addData');
+
 
 
 
@@ -21,6 +22,14 @@ const PORT= process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
+// Initialize middlewareData for all requests
+app.use((req, res, next) => {
+    req.middlewareData = []; // create a shared array
+    next();
+});
+
+
+
 
 //routes
 app.get('/getdata',(req,res)=>{
@@ -32,10 +41,14 @@ app.get('/getdata',(req,res)=>{
     //get data from the DB
 })
 
-app.post('/adddata',validateMiddleware,jwttoken,(req,res)=>{
+app.post('/adddata',validateMiddleware,jwttoken,AddData,(req,res)=>{
 
     
     console.log('everything is fine and your data is added to the DB');
+    res.status(200).json({
+        success:true,
+        response:req.middlewareData
+    })
     //authenticate the input data
     
     //add data in the db
@@ -62,6 +75,15 @@ app.delete('/deletedata',()=>{
 
 
 
+
+// Error handling middleware (must be last)
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).json({
+        success: false,
+        error: err.message || 'Internal Server Error'
+    });
+});
 
 app.listen(PORT,function(){
     console.log(`app is running on port ${PORT}`);

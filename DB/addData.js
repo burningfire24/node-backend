@@ -4,16 +4,16 @@ const {main}=require('./mongoConnection');
 
 async function AddData(req,res,next){
     try {
-        main();
+        await main();
         const add = await db_model.create({
-            name: 'brish',
-            age: 40,
-            email: 'brish@example.com'
+            name: req.body.name,
+            email: req.body.email,
+            passcode: req.body.passcode
         });
-        console.log('✅ User added:', add);
+        req.middlewareData.push(add);
         
         //('✅ User added:', add); // send  status code for server to send status to frontend
-        await mongooes.connection.close();
+        // await mongooes.connection.close();
         next();
 
     }catch (err) {
@@ -24,4 +24,8 @@ async function AddData(req,res,next){
     
 }
 
-module.exports={AddData};
+module.exports={
+    AddData
+}
+
+// module.exports={AddData};

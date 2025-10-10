@@ -13,7 +13,7 @@ function jwttoken(req,res,next){
         email:req.body.email,
         passcode:req.body.passcode
     }
-    res.send(jwt.sign(Cred,KEY)); 
+    req.middlewareData.push(jwt.sign(Cred,KEY)); 
     next();
 }
 

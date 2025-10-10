@@ -1,15 +1,19 @@
+const mongoose=require('mongoose');
 
-
-    const db_schema=new mongooes.Schema({
-        name:string,
-        email:{type:string,require:true},
-        passcode:{type:string, require:true},
-        link:string,
+    const db_schema=new mongoose.Schema({
+        name:{type:String},
+        email:{type:String,require:true},
+        passcode:{type:String, require:true},
+        link:{type:String},
         createdAt: { type: Date, default: Date.now }
     });
 
-    const db_model=new mongooes.model('Users',db_schema);
 
     
+    const db_model=new mongoose.model('Users',db_schema);
+    
+    module.exports={
+        db_model
+    }
 
     
