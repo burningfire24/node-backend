@@ -28,4 +28,3 @@ module.exports={
     AddData
 }
 
-// module.exports={AddData};
